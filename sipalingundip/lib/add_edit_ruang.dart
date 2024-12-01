@@ -66,33 +66,50 @@ class _AddEditRuangPageState extends State<AddEditRuangPage> {
                   ),
                   Divider(thickness: 2),
                   SizedBox(height: 16),
-                  _buildTextField(
-                    controller: gedungController,
-                    labelText: 'Gedung',
-                    icon: Icons.location_city,
-                    hintText: 'Masukkan gedung',
+                  // Row untuk dua kolom
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildTextField(
+                          controller: gedungController,
+                          labelText: 'Gedung',
+                          icon: Icons.location_city,
+                          hintText: 'Masukkan gedung',
+                        ),
+                      ),
+                      SizedBox(width: 16), // Spacing antara kolom
+                      Expanded(
+                        child: _buildTextField(
+                          controller: namaController,
+                          labelText: 'Nama Gedung',
+                          icon: Icons.business,
+                          hintText: 'Masukkan nama gedung',
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 16),
-                  _buildTextField(
-                    controller: namaController,
-                    labelText: 'Nama Gedung',
-                    icon: Icons.business,
-                    hintText: 'Masukkan nama gedung',
-                  ),
-                  SizedBox(height: 16),
-                  _buildTextField(
-                    controller: kapasitasController,
-                    labelText: 'Kapasitas',
-                    icon: Icons.people,
-                    hintText: 'Masukkan kapasitas',
-                    keyboardType: TextInputType.number,
-                  ),
-                  SizedBox(height: 16),
-                  _buildTextField(
-                    controller: programStudiController,
-                    labelText: 'Program Studi',
-                    icon: Icons.school,
-                    hintText: 'Masukkan program studi',
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildTextField(
+                          controller: kapasitasController,
+                          labelText: 'Kapasitas',
+                          icon: Icons.people,
+                          hintText: 'Masukkan kapasitas',
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                      SizedBox(width: 16), // Spacing antara kolom
+                      Expanded(
+                        child: _buildTextField(
+                          controller: programStudiController,
+                          labelText: 'Program Studi',
+                          icon: Icons.school,
+                          hintText: 'Masukkan program studi',
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 32),
                   ElevatedButton.icon(
