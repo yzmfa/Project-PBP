@@ -12,12 +12,21 @@ class AddEditRuangPage extends StatefulWidget {
   _AddEditRuangPageState createState() => _AddEditRuangPageState();
 }
 
+final List<String> programStudiList = [
+  'Informatika',
+  'Biologi',
+  'Bioteknologi',
+  'Matematika',
+  'Fisika',
+];
+
 class _AddEditRuangPageState extends State<AddEditRuangPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController gedungController = TextEditingController();
   final TextEditingController namaController = TextEditingController();
   final TextEditingController kapasitasController = TextEditingController();
-  final TextEditingController programStudiController = TextEditingController();
+  
+  String? selectedProgramStudi;
 
   @override
   void initState() {
@@ -26,7 +35,7 @@ class _AddEditRuangPageState extends State<AddEditRuangPage> {
       gedungController.text = widget.ruang!.gedung;
       namaController.text = widget.ruang!.nama;
       kapasitasController.text = widget.ruang!.kapasitas.toString();
-      programStudiController.text = widget.ruang!.programStudi;
+      selectedProgramStudi = widget.ruang!.programStudi;
     }
   }
 
@@ -35,14 +44,13 @@ class _AddEditRuangPageState extends State<AddEditRuangPage> {
     gedungController.dispose();
     namaController.dispose();
     kapasitasController.dispose();
-    programStudiController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 0, 45, 136),
+      backgroundColor: const Color.fromARGB(255, 0, 45, 136),
       appBar: const MyNavbar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -57,15 +65,15 @@ class _AddEditRuangPageState extends State<AddEditRuangPage> {
                 children: [
                   Text(
                     widget.isEdit ? 'Edit Ruang Kuliah' : 'Tambah Ruang Kuliah',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 0, 45, 136),
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  Divider(thickness: 2),
-                  SizedBox(height: 16),
+                  const Divider(thickness: 2),
+                  const SizedBox(height: 16),
                   // Row untuk dua kolom
                   Row(
                     children: [
@@ -77,7 +85,7 @@ class _AddEditRuangPageState extends State<AddEditRuangPage> {
                           hintText: 'Masukkan gedung',
                         ),
                       ),
-                      SizedBox(width: 16), // Spacing antara kolom
+                      const SizedBox(width: 16), // Spacing antara kolom
                       Expanded(
                         child: _buildTextField(
                           controller: namaController,
@@ -88,7 +96,7 @@ class _AddEditRuangPageState extends State<AddEditRuangPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Row(
                     children: [
                       Expanded(
@@ -100,18 +108,42 @@ class _AddEditRuangPageState extends State<AddEditRuangPage> {
                           keyboardType: TextInputType.number,
                         ),
                       ),
-                      SizedBox(width: 16), // Spacing antara kolom
+                      const SizedBox(width: 16), // Spacing antara kolom
                       Expanded(
-                        child: _buildTextField(
-                          controller: programStudiController,
-                          labelText: 'Program Studi',
-                          icon: Icons.school,
-                          hintText: 'Masukkan program studi',
-                        ),
+                        child: DropdownButtonFormField(
+                          value: selectedProgramStudi,
+                          decoration: InputDecoration(
+                            labelText: 'Program Studi',
+                            prefixIcon: const Icon(Icons.school),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                          ),
+                          items: programStudiList
+                            .map((prodi) => DropdownMenuItem(
+                              value: prodi,
+                              child: Text(prodi),
+                              )
+                            )
+                            .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedProgramStudi = value;
+                            });
+                          },
+                          validator: (value){
+                            if (value == null || value.isEmpty){
+                              return 'Program Studi tidak boleh kosong';
+                            }
+                            return null;
+                          },
+                        )
                       ),
                     ],
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   ElevatedButton.icon(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -120,16 +152,16 @@ class _AddEditRuangPageState extends State<AddEditRuangPage> {
                           gedungController.text,
                           namaController.text,
                           int.tryParse(kapasitasController.text) ?? 0,
-                          programStudiController.text,
+                          selectedProgramStudi ?? '',
                         ));
                       }
                     },
-                    icon: Icon(Icons.save, color: Colors.white),
+                    icon: const Icon(Icons.save, color: Colors.white),
                     label: Text(widget.isEdit ? 'Update' : 'Tambah'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 0, 45, 136),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      textStyle: TextStyle(fontSize: 18, color: Colors.white),
+                      backgroundColor: const Color.fromARGB(255, 0, 45, 136),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      textStyle: const TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
                 ],

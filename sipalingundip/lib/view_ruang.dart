@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:sipalingundip/navbar.dart';
 import 'add_edit_ruang.dart';
@@ -87,14 +86,14 @@ class _ViewRuangState extends State<ViewRuang> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 0, 45, 136),
-      appBar: MyNavbar(),
+      backgroundColor: const Color.fromARGB(255, 0, 45, 136),
+      appBar: const MyNavbar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 'RUANG KULIAH',
                 style: TextStyle(
@@ -108,7 +107,7 @@ class _ViewRuangState extends State<ViewRuang> {
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: Color(0xffF18265),
+                  backgroundColor: const Color(0xffF18265),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -116,7 +115,7 @@ class _ViewRuangState extends State<ViewRuang> {
                 onPressed: () {
                   navigateToAddEditPage(isEdit: false, index: -1); // Menambah ruang baru
                 },
-                child: Text(
+                child: const Text(
                   'Tambah',
                   style: TextStyle(color: Colors.white),
                 ),
@@ -128,11 +127,11 @@ class _ViewRuangState extends State<ViewRuang> {
                   future: fetchData(), // Ambil data dari database
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return Center(child: Text('Tidak ada data'));
+                      return const Center(child: Text('Tidak ada data'));
                     } else {
                       final ruangList = snapshot.data!;
                       return Padding(
@@ -142,29 +141,29 @@ class _ViewRuangState extends State<ViewRuang> {
                           children: [
                             TableRow(
                               decoration: BoxDecoration(color: Colors.grey[300]),
-                              children: [
+                              children: const [
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.0),
                                   child: Text('No', style: TextStyle(fontWeight: FontWeight.bold)),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.0),
                                   child: Text('Gedung', style: TextStyle(fontWeight: FontWeight.bold)),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.0),
                                   child: Text('Nama Gedung', style: TextStyle(fontWeight: FontWeight.bold)),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.0),
                                   child: Text('Kapasitas', style: TextStyle(fontWeight: FontWeight.bold)),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.0),
                                   child: Text('Program Studi', style: TextStyle(fontWeight: FontWeight.bold)),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.0),
                                   child: Text('Aksi', style: TextStyle(fontWeight: FontWeight.bold)),
                                 ),
                               ],
@@ -199,7 +198,7 @@ class _ViewRuangState extends State<ViewRuang> {
                                     child: Row(
                                       children: [
                                         IconButton(
-                                          icon: Icon(Icons.edit, color: Colors.blue),
+                                          icon: const Icon(Icons.edit, color: Colors.blue),
                                           onPressed: () {
                                             navigateToAddEditPage(
                                               ruang: ruang,
@@ -209,7 +208,7 @@ class _ViewRuangState extends State<ViewRuang> {
                                           },
                                         ),
                                         IconButton(
-                                          icon: Icon(Icons.delete, color: Colors.red),
+                                          icon: const Icon(Icons.delete, color: Colors.red),
                                           onPressed: () {
                                             deleteRuang(index);
                                           },
